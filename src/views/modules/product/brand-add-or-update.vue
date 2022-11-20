@@ -37,7 +37,7 @@
         ></el-input>
       </el-form-item>
       <el-form-item label="排序" prop="sort">
-        <el-input-number v-model="dataForm.sort" :min="0" :max="10" label="排序"></el-input-number>
+        <el-input-number v-model="dataForm.sort" :min="1" :max="10" label="排序"></el-input-number>
       </el-form-item>
     </el-form>
     <span slot="footer" class="dialog-footer">
