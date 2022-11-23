@@ -5,8 +5,8 @@
     <el-button v-if="draggable" @click="batchSave">批量保存</el-button>
     <el-button type="danger" @click="batchDelete">批量删除</el-button>
     <el-tree :data="data" :props="defaultProps" :expand-on-click-node="false" show-checkbox node-key="catId"
-      :default-expanded-keys="expandedKey" :draggable="draggable" :allow-drop="allowDrop" @node-drop="handleDrop"
-      ref="menuTree">
+             :default-expanded-keys="expandedKey" :draggable="draggable" :allow-drop="allowDrop" @node-drop="handleDrop"
+             ref="menuTree">
       <span class="custom-tree-node" slot-scope="{ node, data }">
         <span>{{ node.label }}</span>
         <span>
@@ -56,7 +56,7 @@ export default {
       maxLevel: 0,
       title: "",
       dialogType: "",
-      category: { name: "", parentCid: 0, catLevel: 0, showStatus: 1, sort: 0, productUnit: "", icon: "", catId: null },
+      category: {name: "", parentCid: 0, catLevel: 0, showStatus: 1, sort: 0, productUnit: "", icon: "", catId: null},
       dialogVisible: false,
       data: [],
       expandedKey: [],
@@ -73,7 +73,7 @@ export default {
       this.$http({
         url: this.$http.adornUrl("/product/category/tree"),
         method: 'get'
-      }).then(({ data }) => {
+      }).then(({data}) => {
         if (data && data.code === 0) {
           this.data = data.data
         } else {
@@ -101,7 +101,7 @@ export default {
         url: this.$http.adornUrl(`/product/category/info/${data.catId}`),
         method: 'get',
         params: this.$http.adornParams({})
-      }).then(({ data }) => {
+      }).then(({data}) => {
         console.log("要回显的数据", data)
         this.category.name = data.data.name;
         this.category.catId = data.data.catId;
@@ -117,7 +117,7 @@ export default {
         url: this.$http.adornUrl("/product/category/save"),
         method: 'post',
         data: this.$http.adornData(this.category, false)
-      }).then(({ data }) => {
+      }).then(({data}) => {
         this.$message({
           message: ' 菜单保存成功',
           type: 'success'
@@ -139,7 +139,7 @@ export default {
           url: this.$http.adornUrl("/product/category/delete"),
           method: 'post',
           data: this.$http.adornData(ids, false)
-        }).then(({ data }) => {
+        }).then(({data}) => {
           this.$message({
             message: ' 菜单删除成功',
             type: 'success'
@@ -147,7 +147,8 @@ export default {
           this.getDataList();
           this.expandedKey = [node.parent.data.catId];
         });
-      }).catch(() => { });
+      }).catch(() => {
+      });
       console.log("remove", node, data);
     },
     submitData() {
@@ -159,12 +160,12 @@ export default {
       }
     },
     editCategory() {
-      var { catId, name, icon, productUnit } = this.category;
+      var {catId, name, icon, productUnit} = this.category;
       this.$http({
         url: this.$http.adornUrl("/product/category/update"),
         method: 'post',
-        data: this.$http.adornData({ catId, name, icon, productUnit }, false)
-      }).then(({ data }) => {
+        data: this.$http.adornData({catId, name, icon, productUnit}, false)
+      }).then(({data}) => {
         this.$message({
           message: ' 菜单修改成功',
           type: 'success'
@@ -190,21 +191,22 @@ export default {
           url: this.$http.adornUrl("/product/category/delete"),
           method: 'post',
           data: this.$http.adornData(catIds, false)
-        }).then(({ data }) => {
+        }).then(({data}) => {
           this.$message({
             message: ' 菜单批量删除成功',
             type: 'success'
           });
           this.getDataList();
         });
-      }).catch(() => { });
+      }).catch(() => {
+      });
     },
     batchSave() {
       this.$http({
         url: this.$http.adornUrl("/product/category/update/sort"),
         method: 'post',
         data: this.$http.adornData(this.updateNodes, false)
-      }).then(({ data }) => {
+      }).then(({data}) => {
         this.$message({
           message: ' 菜单顺序等修改成功',
           type: 'success'
@@ -235,9 +237,9 @@ export default {
             catLevel = siblings[i].level;
             this.updateChildNodeLevel(siblings[i]);
           }
-          this.updateNodes.push({ catId: siblings[i].data.catId, sort: i, parentCid: pCid, catLevel: catLevel });
+          this.updateNodes.push({catId: siblings[i].data.catId, sort: i, parentCid: pCid, catLevel: catLevel});
         } else {
-          this.updateNodes.push({ catId: siblings[i].data.catId, sort: i });
+          this.updateNodes.push({catId: siblings[i].data.catId, sort: i});
         }
       }
       console.log("updateNodes", this.updateNodes);
@@ -246,7 +248,7 @@ export default {
       if (node.childNodes.length > 0) {
         for (let i = 0; i < node.childNodes.length; i++) {
           var cNode = node.childNodes[i].data;
-          this.updateNodes.push({ catId: cNode.catId, catLevel: node.childNodes[i].level });
+          this.updateNodes.push({catId: cNode.catId, catLevel: node.childNodes[i].level});
           this.updateChildNodeLevel(node.childNodes[i]);
         }
       }
@@ -276,7 +278,7 @@ export default {
   //监控 data 中的数据变化
   watch: {},
   //生命周期 - 创建完成（可以访问当前 this 实例）
-  created () {
+  created() {
     this.getDataList()
   }
 }

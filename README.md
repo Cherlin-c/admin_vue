@@ -18,7 +18,7 @@
 ### node.js版本
 
 关于前端VUE的node-sass版本问题,如果你的是最新的node16版本
-如果已经终端运行过nom install的话删除掉node_moduls文件
+如果已经终端运行过npm install的话删除掉node_moduls文件
 找到package-lock.json文件ctrl+F 查找sass
 改掉node-sass的version版本号和resolved路径后的版本号
 以及改掉sass-loader的version和resolved路径后的版本号
